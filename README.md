@@ -32,16 +32,16 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the composition model (core
 
 | Stack                  | Kind     | Status    |
 | ---------------------- | -------- | --------- |
-| `ts-node-npm`          | base     | full      |
+| `ts-node-npm`          | base     | skills    |
 | `js-node-npm`          | base     | manifest  |
 | `java-gradle`          | base     | manifest  |
-| `java-spring-gradle`   | base     | manifest  |
-| `python-uv`            | base     | manifest  |
-| `go`                   | base     | manifest  |
+| `java-spring-gradle`   | base     | skills    |
+| `python-uv`            | base     | skills    |
+| `go`                   | base     | skills    |
 | `react-mantine`        | overlay  | manifest  |
 | `react-mui`            | overlay  | manifest  |
 
-"Manifest" = `stack.json` defines commands and layout, but no code templates or stack-specific skills yet. The agnostic core still applies.
+"Manifest" = `stack.json` defines commands and layout, but no code templates or stack-specific skills yet. "Skills" = manifest + stack-specific skills (create-usecase, add-endpoint, write-unit-test). The agnostic core always applies.
 
 ## Adding a new stack
 
