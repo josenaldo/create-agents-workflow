@@ -1,0 +1,28 @@
+# Agents & Skills — {{project.name}}
+
+## Skill Graph
+
+### Core Skills (stack-agnostic)
+
+- `write-adr` — Architecture Decision Records
+- `write-spec` — User stories and acceptance criteria
+- `write-readme` — Module/project documentation
+- `enforce-boundary` — Clean Architecture layer validation
+
+### Implementation Skills (per stack: {{stack.base}})
+
+Stack-specific skills are loaded from `.claude/skills/{{stack.base}}/`.
+
+## Workflow
+
+```
+brainstorming → design → stories (write-spec) + adrs (write-adr) → plans → implementation (TDD) → review (enforce-boundary) → deploy
+```
+
+## Model Routing
+
+| Task type | Model tier | Examples |
+|-----------|-----------|---------|
+| Scanning, docs | Fast | file search, README generation, lint checks |
+| Features, tests | Standard | new use cases, unit tests, bug fixes |
+| Architecture | Complex | refactoring, cross-layer decisions, ADRs |

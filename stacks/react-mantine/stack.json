@@ -1,0 +1,17 @@
+{
+  "label": "React + Mantine",
+  "hint": "Mantine v7/v8 UI overlay",
+  "kind": "overlay",
+  "requires": ["ts-node-npm", "js-node-npm"],
+  "commands": {
+    "dev": "npm run dev",
+    "build": "npm run build",
+    "test:unit": "npx vitest run",
+    "lint": "npm run lint",
+    "format": "npm run format",
+    "typecheck": "npx tsc --noEmit",
+    "storybook": "npm run storybook"
+  },
+  "layout": "src/features/{module}/{api,model,hooks,pages,components}",
+  "testFramework": "vitest"
+}

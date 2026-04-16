@@ -1,0 +1,19 @@
+{
+  "label": "TypeScript + Node + npm",
+  "hint": "Express, Fastify, NestJS, etc.",
+  "kind": "base",
+  "commands": {
+    "dev": "npm run dev",
+    "build": "npm run build",
+    "test:unit": "npm run test:unit",
+    "test:integration": "npm run test:integration",
+    "test:e2e": "npm run test:e2e",
+    "lint": "npm run lint",
+    "format": "npm run format",
+    "typecheck": "npx tsc --noEmit",
+    "deps:install": "npm install",
+    "deps:add": "npm install"
+  },
+  "layout": "src/{module}/{domain,application,infrastructure}",
+  "testFramework": "jest"
+}

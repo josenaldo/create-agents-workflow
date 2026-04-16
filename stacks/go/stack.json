@@ -1,0 +1,19 @@
+{
+  "label": "Go",
+  "hint": "go mod + golangci-lint + Taskfile (optional)",
+  "kind": "base",
+  "commands": {
+    "dev": "go run ./cmd/server",
+    "build": "go build ./...",
+    "test:unit": "go test ./... -short -count=1",
+    "test:integration": "go test ./... -run Integration -count=1",
+    "test:e2e": "go test ./... -run E2E -count=1",
+    "lint": "golangci-lint run ./...",
+    "format": "gofmt -w .",
+    "typecheck": "go vet ./...",
+    "deps:install": "go mod download",
+    "deps:add": "go get"
+  },
+  "layout": "internal/{module}/{domain,application,infrastructure}",
+  "testFramework": "testing"
+}

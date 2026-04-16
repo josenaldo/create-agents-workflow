@@ -1,0 +1,18 @@
+{
+  "label": "Java + Gradle",
+  "hint": "vanilla Java, no framework",
+  "kind": "base",
+  "commands": {
+    "dev": "./gradlew run",
+    "build": "./gradlew build",
+    "test:unit": "./gradlew test",
+    "test:integration": "./gradlew integrationTest",
+    "lint": "./gradlew checkstyleMain",
+    "format": "./gradlew spotlessApply",
+    "typecheck": "./gradlew compileJava",
+    "deps:install": "./gradlew dependencies",
+    "deps:add": "# add to build.gradle.kts and run ./gradlew dependencies"
+  },
+  "layout": "src/main/java/{module}/{domain,application,infrastructure}",
+  "testFramework": "junit5"
+}

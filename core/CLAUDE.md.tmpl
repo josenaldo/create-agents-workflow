@@ -1,0 +1,62 @@
+# {{project.name}}
+
+Stack: **{{stack.label}}**
+
+## Architecture
+
+- **NEW code:** `{{layout}}` — Clean Architecture
+- **SHARED:** `src/@shared/` — base classes, error handling, utilities
+
+## Critical Rules
+
+- Require explicit user authorization to START implementation work (feature, refactor). Once authorized, commit autonomously per TDD cycle during execution.
+- **Commit convention (mandatory):** `type(scope): imperative message\n\nRefs #NN` or `Closes #NN`. Types: `feat`, `fix`, `test`, `refactor`, `docs`, `chore`. Scope = module name.
+- Only commit files directly related to the task — NEVER include unrelated files. Use `git add <specific-paths>`, never `git add -A` or `git add .`
+- NEVER import infrastructure concerns in `domain/` or `application/` layers
+- ALWAYS write unit tests for new Use Cases — write the test BEFORE the implementation (TDD)
+- NEVER add business logic to Controllers (HTTP coordination only)
+
+## Development Workflow
+
+New feature or change: `brainstorming → design → stories + adrs → plans → implementation (TDD) → review → deploy`
+
+Full reference: `docs/specs/WORKFLOW.md`
+
+**TDD cycle (mandatory per task):**
+
+1. Write failing test → run → confirm RED
+2. Implement minimum code → run → confirm GREEN
+3. Refactor if needed → commit
+
+**Module docs — keep in sync after every change:**
+
+- Entity/rule changed → update `docs/specs/{module}/domain-model.md`
+- Route added/changed → update `docs/specs/{module}/endpoints.md`
+- Route connected to frontend screen → update `docs/specs/{module}/route-mapping.md`
+
+## Commands
+
+```bash
+{{cmdBlock}}
+```
+
+## Module Structure (Clean Architecture)
+
+```
+{{layout}}
+```
+
+## Memory & Decisions
+
+See `memory/MEMORY.md` for architectural decisions, known issues, and confirmed patterns.
+
+## Model Selection
+
+- Fast (Haiku-class): file scanning, discovery, docs generation, lint checks
+- Standard (Sonnet-class): new features, use cases, tests, bug fixes — default
+- Complex (Opus-class): architectural refactoring, cross-layer decisions, ADRs
+
+## Safe Auto-Approvals
+
+Auto-approve: read, search, diff, lint, build, test:unit
+Require explicit approval: deps:install, DB migrations, deploy, seed, secrets, force push, destructive DB ops

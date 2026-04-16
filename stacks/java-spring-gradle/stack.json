@@ -1,0 +1,19 @@
+{
+  "label": "Java + Spring Boot + Gradle",
+  "hint": "Spring Boot 3+, Clean Architecture",
+  "kind": "base",
+  "commands": {
+    "dev": "./gradlew bootRun",
+    "build": "./gradlew build",
+    "test:unit": "./gradlew test --tests '*UnitTest*'",
+    "test:integration": "./gradlew test --tests '*IntegrationTest*'",
+    "test:e2e": "./gradlew test --tests '*E2ETest*'",
+    "lint": "./gradlew checkstyleMain",
+    "format": "./gradlew spotlessApply",
+    "typecheck": "./gradlew compileJava",
+    "deps:install": "./gradlew dependencies",
+    "deps:add": "# add to build.gradle.kts and run ./gradlew dependencies"
+  },
+  "layout": "src/main/java/{module}/{domain,application,infrastructure}",
+  "testFramework": "junit5"
+}

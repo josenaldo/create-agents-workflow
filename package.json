@@ -1,0 +1,31 @@
+{
+  "name": "@josenaldo/create-claude-workflow",
+  "version": "0.1.0",
+  "description": "Scaffolding CLI to bootstrap a Claude Code workflow (docs + skills + memory + commands) tailored to a chosen stack",
+  "type": "module",
+  "bin": {
+    "create-claude-workflow": "bin/create.js"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "core",
+    "stacks",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.7.0",
+    "picocolors": "^1.0.0"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "scaffolding",
+    "template",
+    "clean-architecture"
+  ],
+  "license": "MIT"
+}
