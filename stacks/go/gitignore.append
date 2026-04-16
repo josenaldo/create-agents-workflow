@@ -1,0 +1,8 @@
+
+# Go
+bin/
+vendor/
+
+# Environment
+.env
+.env.local
