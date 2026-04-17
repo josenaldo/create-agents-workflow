@@ -30,10 +30,10 @@ const { values: flags, positionals } = parseArgs({
 
 if (flags.help) {
   console.log(`
-${pc.bold('create-claude-workflow')} — scaffold a Claude Code workflow
+${pc.bold('create-agents-workflow')} — scaffold a multi-agent Claude Code / Codex / Gemini / Copilot / Cursor workflow
 
 ${pc.dim('Usage:')}
-  npx @josenaldo/create-claude-workflow [project] [options]
+  npx @josenaldo/create-agents-workflow [project] [options]
 
 ${pc.dim('Arguments:')}
   project             Project name or "." for current directory
@@ -42,6 +42,8 @@ ${pc.dim('Options:')}
   -y, --yes           Accept all defaults (non-interactive)
   --stack <name>      Base stack (skip prompt)
   --overlay <name>    Frontend overlay, or "none" (skip prompt)
+  --agents <list>     Comma-separated: claude,codex,gemini,copilot,cursor
+                      (default: all)
   --dry-run           Show what would be generated without writing
   -h, --help          Show this help
 `);
@@ -73,7 +75,7 @@ function formatCommandBlock(cmds) {
 // ─── Main ──────────────────────────────────────────────────────────────────────
 
 async function main() {
-  if (!nonInteractive) intro(pc.bgMagenta(pc.black(' create-claude-workflow ')));
+  if (!nonInteractive) intro(pc.bgMagenta(pc.black(' create-agents-workflow ')));
 
   const { bases, overlays } = await listStacks(STACKS);
   const baseNames = bases.map((b) => b.name);
