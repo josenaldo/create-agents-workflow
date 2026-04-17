@@ -1,10 +1,10 @@
 {
-  "name": "@josenaldo/create-claude-workflow",
-  "version": "0.1.0",
-  "description": "Scaffolding CLI to bootstrap a Claude Code workflow (docs + skills + memory + commands) tailored to a chosen stack",
+  "name": "@josenaldo/create-agents-workflow",
+  "version": "1.0.0-0",
+  "description": "Scaffolding CLI to bootstrap a multi-agent Claude Code / Codex / Gemini / Copilot / Cursor workflow (AGENTS.md + skills + memory + command mapping) tailored to a chosen stack",
   "type": "module",
   "bin": {
-    "create-claude-workflow": "bin/create.js"
+    "create-agents-workflow": "bin/create.js"
   },
   "files": [
     "bin",
@@ -14,19 +14,19 @@
     "README.md",
     "LICENSE"
   ],
+  "scripts": {
+    "test": "node --test test/**/*.test.js"
+  },
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/josenaldo/claude-workflow-template.git"
+    "url": "git+https://github.com/josenaldo/agents-workflow-template.git"
   },
-  "homepage": "https://github.com/josenaldo/claude-workflow-template#readme",
+  "homepage": "https://github.com/josenaldo/agents-workflow-template#readme",
   "bugs": {
-    "url": "https://github.com/josenaldo/claude-workflow-template/issues"
-  },
-  "scripts": {
-    "test": "node --test test/**/*.test.js"
+    "url": "https://github.com/josenaldo/agents-workflow-template/issues"
   },
   "engines": {
     "node": ">=18"
@@ -38,9 +38,15 @@
   "keywords": [
     "claude",
     "claude-code",
+    "codex",
+    "gemini",
+    "copilot",
+    "cursor",
+    "agents-md",
     "scaffolding",
     "template",
-    "clean-architecture"
+    "clean-architecture",
+    "context-engineering"
   ],
   "license": "MIT"
 }
