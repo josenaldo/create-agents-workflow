@@ -11,8 +11,20 @@
     "lib",
     "core",
     "stacks",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josenaldo/claude-workflow-template.git"
+  },
+  "homepage": "https://github.com/josenaldo/claude-workflow-template#readme",
+  "bugs": {
+    "url": "https://github.com/josenaldo/claude-workflow-template/issues"
+  },
   "scripts": {
     "test": "node --test test/**/*.test.js"
   },
