@@ -15,6 +15,10 @@ const ROOT = resolve(__dirname, '..');
 const CORE = join(ROOT, 'core');
 const STACKS = join(ROOT, 'stacks');
 
+// All agents supported by the multi-agent pivot. Each agent corresponds to a Layer 2 file (stub).
+// Symlink logic for agents that use a native skills directory lives in lib/copy.js.
+const ALL_AGENTS = ['claude', 'codex', 'gemini', 'copilot', 'cursor'];
+
 // ─── CLI argument parsing ──────────────────────────────────────────────────────
 
 const { values: flags, positionals } = parseArgs({
