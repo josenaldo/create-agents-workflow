@@ -7,12 +7,34 @@ Scaffolds a **Claude Code workflow** (CLAUDE.md + docs/specs + skills + memory +
 ## Usage
 
 ```bash
+# Interactive (prompts for everything)
 npx @josenaldo/create-claude-workflow
+
+# Current directory
+npx @josenaldo/create-claude-workflow .
+
+# Non-interactive (scriptable)
+npx @josenaldo/create-claude-workflow my-app --stack ts-node-npm --yes
+
+# Preview without writing
+npx @josenaldo/create-claude-workflow my-app --stack go --dry-run
 ```
 
-The CLI asks:
+### Options
 
-- **Project name** (used to create a directory, or `.` for current)
+| Flag | Short | Description |
+| --- | --- | --- |
+| `--yes` | `-y` | Accept all defaults (non-interactive) |
+| `--stack <name>` | | Base stack (skip prompt) |
+| `--overlay <name>` | | Frontend overlay or `none` (skip prompt) |
+| `--dry-run` | | Show what would be generated without writing |
+| `--help` | `-h` | Show help |
+
+### Interactive mode
+
+Without flags, the CLI asks:
+
+- **Project name** (or `.` for current directory)
 - **Base stack** (one of: `ts-node-npm`, `js-node-npm`, `java-gradle`, `java-spring-gradle`, `python-uv`, `go`)
 - **Frontend overlay** (optional: `react-mantine`, `react-mui`, or none)
 - **Init git / initial commit**
