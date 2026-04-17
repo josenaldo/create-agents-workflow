@@ -290,6 +290,19 @@ describe('scaffold: ts-node-npm + react-mantine (overlay)', () => {
     // deps:add is only in ts-node-npm base, not in react-mantine overlay
     assert.ok(claudeMd.includes('npm install'), 'Should preserve base-only commands');
   });
+
+  it('copies overlay skills alongside base skills', async () => {
+    const overlaySkillsDir = join(dir, '.claude', 'skills', 'react-mantine');
+    assert.ok(await dirExists(overlaySkillsDir), 'Overlay skills dir should exist');
+    const files = await readdir(overlaySkillsDir);
+    assert.ok(files.includes('create-component-mantine.md'));
+    assert.ok(files.includes('create-page-mantine.md'));
+    assert.ok(files.includes('frontend-hooks-react-query.md'));
+
+    // Base skills also present (not overwritten by overlay)
+    const baseSkillsDir = join(dir, '.claude', 'skills', 'ts-node-npm');
+    assert.ok(await dirExists(baseSkillsDir), 'Base skills dir should coexist');
+  });
 });
 
 describe('scaffold: ts-node-npm + react-mui (overlay)', () => {
@@ -307,5 +320,13 @@ describe('scaffold: ts-node-npm + react-mui (overlay)', () => {
 
   it('uses vitest from overlay', () => {
     assert.equal(merged.testFramework, 'vitest');
+  });
+
+  it('copies overlay skills', async () => {
+    const overlaySkillsDir = join(dir, '.claude', 'skills', 'react-mui');
+    assert.ok(await dirExists(overlaySkillsDir), 'Overlay skills dir should exist');
+    const files = await readdir(overlaySkillsDir);
+    assert.ok(files.includes('create-component-mui.md'));
+    assert.ok(files.includes('create-page-mui.md'));
   });
 });

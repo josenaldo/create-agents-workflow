@@ -22,13 +22,13 @@ npx @josenaldo/create-claude-workflow my-app --stack go --dry-run
 
 ### Options
 
-| Flag | Short | Description |
-| --- | --- | --- |
-| `--yes` | `-y` | Accept all defaults (non-interactive) |
-| `--stack <name>` | | Base stack (skip prompt) |
-| `--overlay <name>` | | Frontend overlay or `none` (skip prompt) |
-| `--dry-run` | | Show what would be generated without writing |
-| `--help` | `-h` | Show help |
+| Flag               | Short | Description                                  |
+| ------------------ | ----- | -------------------------------------------- |
+| `--yes`            | `-y`  | Accept all defaults (non-interactive)        |
+| `--stack <name>`   |       | Base stack (skip prompt)                     |
+| `--overlay <name>` |       | Frontend overlay or `none` (skip prompt)     |
+| `--dry-run`        |       | Show what would be generated without writing |
+| `--help`           | `-h`  | Show help                                    |
 
 ### Interactive mode
 
@@ -52,16 +52,16 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the composition model (core
 
 ### Stacks
 
-| Stack                  | Kind     | Status    |
-| ---------------------- | -------- | --------- |
-| `ts-node-npm`          | base     | skills    |
-| `js-node-npm`          | base     | manifest  |
-| `java-gradle`          | base     | manifest  |
-| `java-spring-gradle`   | base     | skills    |
-| `python-uv`            | base     | skills    |
-| `go`                   | base     | skills    |
-| `react-mantine`        | overlay  | manifest  |
-| `react-mui`            | overlay  | manifest  |
+| Stack                | Kind    | Status   |
+| -------------------- | ------- | -------- |
+| `ts-node-npm`        | base    | skills   |
+| `js-node-npm`        | base    | manifest |
+| `java-gradle`        | base    | manifest |
+| `java-spring-gradle` | base    | skills   |
+| `python-uv`          | base    | skills   |
+| `go`                 | base    | skills   |
+| `react-mantine`      | overlay | skills   |
+| `react-mui`          | overlay | skills   |
 
 "Manifest" = `stack.json` defines commands and layout, but no code templates or stack-specific skills yet. "Skills" = manifest + stack-specific skills (create-usecase, add-endpoint, write-unit-test). The agnostic core always applies.
 
