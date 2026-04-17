@@ -24,7 +24,7 @@ The referenced blog post prescribes a concrete multi-agent architecture built on
   - `.cursorrules` — stub referencing AGENTS.md
 - Skills migrate from flat `.md` files to folder format: `.agents/skills/{name}/SKILL.md` with optional `references/`, `scripts/`, `assets/`
 - Symlinks generated post-scaffold: `.claude/skills/` → `../.agents/skills/`, `.github/skills/` → `../.agents/skills/`
-- All 21 existing skills rewritten in the blog's full format (`Instruções`, `Critical`, `Exemplos`, `Troubleshooting`, `Performance Notes`, `Consulte também`)
+- All 21 existing skills rewritten in the blog's full format, **in English** (`Instructions`, `Critical`, `Examples`, `Troubleshooting`, `Performance Notes`, `See also`)
 - CLI keeps existing flags (`--yes`, `--stack`, `--overlay`, `--dry-run`, `--help`); adds `--agents <list>` (optional; default = all agents)
 - Deprecate `@josenaldo/create-claude-workflow` via `npm deprecate`; publish final patch `0.1.1` with README pointer to the new package
 - Publish `@josenaldo/create-agents-workflow@1.0.0`
@@ -132,13 +132,15 @@ metadata:
 
 ### 4.2 Body sections (in order)
 
+**Language policy:** All skill content (headers, body, descriptions, examples, error messages) MUST be written in English. The blog post referenced for the architecture uses Portuguese for illustration, but skills in this project target a global audience and the section headings are standardized in English.
+
 1. `# Title` — H1 with human-readable skill name
-2. `## Instruções` — numbered steps, each with `- [ ]` checkboxes for concrete actions
+2. `## Instructions` — numbered steps, each with `- [ ]` checkboxes for concrete actions
 3. `## Critical` — high-impact rules with brief consequence (not CAPS; one sentence of why)
-4. `## Exemplos` — at least one concrete scenario in the format `Usuário diz:` / `Ações:` / `Resultado:`. Code examples > 20 lines go to `references/`
-5. `## Troubleshooting` — 2-3 common errors as `**Erro** → Causa → Solução`
+4. `## Examples` — at least one concrete scenario in the format `User says:` / `Actions:` / `Result:`. Code examples > 20 lines go to `references/`
+5. `## Troubleshooting` — 2-3 common errors as `**Error** → Cause → Solution`
 6. `## Performance Notes` — optional; only when the agent tends to skip steps
-7. `## Consulte também` — cross-references to related skills (max 1 level deep, no A→B→C→D chains)
+7. `## See also` — cross-references to related skills (max 1 level deep, no A→B→C→D chains)
 
 ### 4.3 Size budget
 
@@ -149,13 +151,13 @@ metadata:
 
 The `description` is the only field the agent reads before deciding whether to load the skill. Pattern:
 
-> **O QUE faz** + **QUANDO usar** (natural phrases the user would say) + **capacidades-chave** + **Não use para X** (when overtriggering is a risk).
+> **WHAT it does** + **WHEN to use** (natural phrases the user would say) + **key capabilities** + **Don't use for X** (when overtriggering is a risk).
 
 Lean toward "pushy" language. Example:
 
-> ❌ Weak: `"Criando use case."`
+> ❌ Weak: `"Creating a use case."`
 >
-> ✅ Strong: `"Criando Use Case com TDD em TypeScript + Node. Use quando o usuário pedir criar caso de uso, novo serviço, nova operação de negócio, ou disser 'adicionar X', 'criar use case para Y'. Não use para endpoint HTTP — use add-endpoint-express. Não use para componente visual — use create-component-mantine."`
+> ✅ Strong: `"Creating a Use Case with TDD in TypeScript + Node. Use when the user asks to create a use case, new service, new business operation, or says 'add X', 'create use case for Y'. Don't use for HTTP endpoints — use add-endpoint-express. Don't use for visual components — use create-component-mantine."`
 
 ### 4.5 Skill types used in this MVP
 
@@ -300,13 +302,13 @@ Existing 76 tests in `test/scaffold.test.js` need updates. Expected shape after 
 
 The MVP is shaped so the next spec adds content, not rearchitecting:
 
-| Next-spec feature | Hook ready in this MVP |
-| --- | --- |
-| Meta-skills | `metadata.skill_type: meta` already validated; AGENTS.md catalog section can list them with `[meta]` tag |
-| Constraint-skill scripts | `scripts/` folder already copied by the renderer; `enforce-boundary/SKILL.md` already positioned as a constraint-skill with a placeholder for `## Validação Automatizada` section |
-| Skill graph references | `## Consulte também` section already established; cross-refs use relative paths (`../other-skill/SKILL.md`) |
-| Model selection matrix | `CLAUDE.md` reserves a comment `<!-- Model selection matrix — added in next iteration -->` pointing to where it'll land |
-| Copilot `.github/instructions/*.instructions.md` | `.github/` directory already exists in the generated project; adding instructions is additive |
+| Next-spec feature                                | Hook ready in this MVP                                                                                                                                                            |
+| ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Meta-skills                                      | `metadata.skill_type: meta` already validated; AGENTS.md catalog section can list them with `[meta]` tag                                                                          |
+| Constraint-skill scripts                         | `scripts/` folder already copied by the renderer; `enforce-boundary/SKILL.md` already positioned as a constraint-skill with a placeholder for `## Automated Validation` section   |
+| Skill graph references                           | `## See also` section already established; cross-refs use relative paths (`../other-skill/SKILL.md`)                                                                              |
+| Model selection matrix                           | `CLAUDE.md` reserves a comment `<!-- Model selection matrix — added in next iteration -->` pointing to where it'll land                                                           |
+| Copilot `.github/instructions/*.instructions.md` | `.github/` directory already exists in the generated project; adding instructions is additive                                                                                     |
 
 ## 10. Implementation Order (high-level; detailed plan from writing-plans)
 
@@ -323,15 +325,15 @@ The MVP is shaped so the next spec adds content, not rearchitecting:
 
 ## 11. Risks and Mitigations
 
-| Risk | Mitigation |
-| --- | --- |
-| Symlinks fail silently on Windows | Explicit fallback + stderr warning + `AGENTS.md` Platform Notes section |
-| Reescrita de 21 skills é trabalho volumoso | If the writing-plans plan gets too large, split into two sub-plans (infra/rename first, then skill rewrites in batches) |
-| `@josenaldo/create-agents-workflow` name may be taken | Verify availability before starting implementation; fall back to a near-synonym if taken |
-| Existing users with lockfiles broken | No-op: old package stays published and functional; new package is net-additive |
-| AGENTS.md size drift (>60 lines) | Add a test assertion that the rendered AGENTS.md is under 80 lines (buffer above target) |
-| CLAUDE.md size drift (>80 lines) | Same: test assertion < 100 lines |
-| Skill SKILL.md exceeds 500 lines | Lint step in tests that warns for any SKILL.md > 500 lines |
+| Risk                                                  | Mitigation                                                                                                              |
+| ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Symlinks fail silently on Windows                     | Explicit fallback + stderr warning + `AGENTS.md` Platform Notes section                                                 |
+| Rewriting 21 skills is substantial work               | If the writing-plans plan gets too large, split into two sub-plans (infra/rename first, then skill rewrites in batches) |
+| `@josenaldo/create-agents-workflow` name may be taken | Verify availability before starting implementation; fall back to a near-synonym if taken                                |
+| Existing users with lockfiles broken                  | No-op: old package stays published and functional; new package is net-additive                                          |
+| AGENTS.md size drift (>60 lines)                      | Add a test assertion that the rendered AGENTS.md is under 80 lines (buffer above target)                                |
+| CLAUDE.md size drift (>80 lines)                      | Same: test assertion < 100 lines                                                                                        |
+| Skill SKILL.md exceeds 500 lines                      | Lint step in tests that warns for any SKILL.md > 500 lines                                                              |
 
 ## 12. Resolved Decisions (previously open)
 
