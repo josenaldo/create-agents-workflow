@@ -1,6 +1,9 @@
 ---
 name: create-component-mantine
 description: Scaffold a new React component using Mantine UI primitives with typed props and a colocated test.
+metadata:
+  skill_type: micro
+  stack: react-mantine
 ---
 
 # Create Component (Mantine)

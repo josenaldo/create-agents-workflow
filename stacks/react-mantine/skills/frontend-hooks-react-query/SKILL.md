@@ -1,6 +1,9 @@
 ---
 name: frontend-hooks-react-query
 description: Create a data-fetching hook using TanStack Query (React Query) for a backend endpoint.
+metadata:
+  skill_type: micro
+  stack: react-mantine
 ---
 
 # Frontend Hooks (React Query)

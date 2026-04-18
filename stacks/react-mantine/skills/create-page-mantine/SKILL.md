@@ -1,6 +1,9 @@
 ---
 name: create-page-mantine
 description: Scaffold a new page component using Mantine layout primitives, wired to the router and data layer.
+metadata:
+  skill_type: micro
+  stack: react-mantine
 ---
 
 # Create Page (Mantine)
