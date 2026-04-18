@@ -27,6 +27,7 @@ const { values: flags, positionals } = parseArgs({
     yes: { type: 'boolean', short: 'y', default: false },
     stack: { type: 'string', default: '' },
     overlay: { type: 'string', default: '' },
+    agents: { type: 'string', default: '' },
     'dry-run': { type: 'boolean', default: false },
     help: { type: 'boolean', short: 'h', default: false },
   },
@@ -57,6 +58,18 @@ ${pc.dim('Options:')}
 const autoYes = flags.yes;
 const dryRun = flags['dry-run'];
 const nonInteractive = autoYes || dryRun;
+
+const requestedAgents = flags.agents
+  ? flags.agents.split(',').map((s) => s.trim()).filter(Boolean)
+  : ALL_AGENTS;
+
+// Validate
+for (const a of requestedAgents) {
+  if (!ALL_AGENTS.includes(a)) {
+    console.error(pc.red('Error:'), `Unknown agent "${a}". Valid: ${ALL_AGENTS.join(', ')}`);
+    process.exit(1);
+  }
+}
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
