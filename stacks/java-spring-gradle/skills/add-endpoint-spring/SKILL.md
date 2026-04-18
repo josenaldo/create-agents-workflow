@@ -1,6 +1,9 @@
 ---
 name: add-endpoint-spring
 description: Add a new Spring Boot REST endpoint wired to a Use Case, following Clean Architecture.
+metadata:
+  skill_type: micro
+  stack: java-spring-gradle
 ---
 
 # Add Endpoint (Spring Boot)

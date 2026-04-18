@@ -1,6 +1,9 @@
 ---
 name: create-usecase-spring
 description: Scaffold a new Use Case class following Clean Architecture in a Java + Spring Boot project.
+metadata:
+  skill_type: micro
+  stack: java-spring-gradle
 ---
 
 # Create Use Case (Spring)

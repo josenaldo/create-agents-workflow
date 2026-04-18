@@ -1,6 +1,9 @@
 ---
 name: write-unit-test-junit
 description: Write a unit test for a Use Case or domain entity using JUnit 5 in a Java + Spring Boot project.
+metadata:
+  skill_type: micro
+  stack: java-spring-gradle
 ---
 
 # Write Unit Test (JUnit 5)
