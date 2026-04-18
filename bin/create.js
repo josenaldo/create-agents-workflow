@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
 import { parseArgs } from 'node:util';
 import { listStacks, loadStack, mergeManifests } from '../lib/stack.js';
-import { copyTree, appendFile } from '../lib/copy.js';
+import { copyTree, appendFile, createSymlinks } from '../lib/copy.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -18,6 +18,27 @@ const STACKS = join(ROOT, 'stacks');
 // All agents supported by the multi-agent pivot. Each agent corresponds to a Layer 2 file (stub).
 // Symlink logic for agents that use a native skills directory lives in lib/copy.js.
 const ALL_AGENTS = ['claude', 'codex', 'gemini', 'copilot', 'cursor'];
+
+// Maps each agent to its Layer 2 template file, relative to CORE.
+const AGENT_LAYER2_FILES = {
+  claude: 'CLAUDE.md.tmpl',
+  gemini: 'GEMINI.md.tmpl',
+  copilot: '.github/copilot-instructions.md.tmpl',
+  cursor: '.cursorrules.tmpl',
+  // codex reads AGENTS.md natively — no Layer 2 stub
+};
+
+async function copyCoreFiltered(coreDir, targetDir, context, agents) {
+  // Determine which Layer 2 files to skip based on non-selected agents.
+  const enabledLayer2 = new Set();
+  for (const a of agents) {
+    if (AGENT_LAYER2_FILES[a]) enabledLayer2.add(AGENT_LAYER2_FILES[a]);
+  }
+  const allLayer2 = new Set(Object.values(AGENT_LAYER2_FILES));
+  const skipRel = [...allLayer2].filter((p) => !enabledLayer2.has(p));
+
+  await copyTree(coreDir, targetDir, context, { skipRelative: skipRel });
+}
 
 // ─── CLI argument parsing ──────────────────────────────────────────────────────
 
@@ -224,14 +245,14 @@ async function main() {
       ...Object.entries(merged.commands).map(([k, v]) => `  ${k}: ${v}`),
       '',
       pc.bold('Would generate:'),
-      `  CLAUDE.md, AGENTS.md, .gitignore`,
+      `  AGENTS.md, CLAUDE.md, GEMINI.md, .cursorrules, .github/copilot-instructions.md, README.md, .gitignore`,
       `  docs/specs/ (WORKFLOW.md, templates)`,
-      `  .claude/skills/_core/ (4 core skills)`,
+      `  .agents/skills/_core/ (4 core skills)`,
       ...selectedStacks
         .filter((s) => existsSync(join(s.dir, 'skills')))
-        .map((s) => `  .claude/skills/${s.name}/ (stack skills)`),
+        .map((s) => `  .agents/skills/${s.name}/ (stack skills)`),
       ...(seedMemory ? ['  memory/MEMORY.md'] : []),
-      `  .claude/stack.resolved.json`,
+      `  .agents/stack.resolved.json`,
       '',
       pc.yellow('No files were written.'),
     ];
@@ -251,7 +272,7 @@ async function main() {
   } else {
     log('Copying agnostic core...');
   }
-  await copyTree(CORE, targetDir, context);
+  await copyCoreFiltered(CORE, targetDir, context, requestedAgents);
   if (s) s.stop('Core copied.');
 
   for (const stack of selectedStacks) {
@@ -261,9 +282,10 @@ async function main() {
     if (existsSync(templatesDir)) {
       await copyTree(templatesDir, targetDir, context);
     }
+    // Stack skills → .agents/skills/{stack-name}/
     const skillsDir = join(stack.dir, 'skills');
     if (existsSync(skillsDir)) {
-      const dst = join(targetDir, '.claude', 'skills', stack.name);
+      const dst = join(targetDir, '.agents', 'skills', stack.name);
       await mkdir(dst, { recursive: true });
       await copyTree(skillsDir, dst, context);
     }
@@ -274,9 +296,12 @@ async function main() {
     if (s) s.stop(`Applied: ${stack.name}`);
   }
 
+  // Create symlinks for agents that expect a native skills directory.
+  await createSymlinks(targetDir, requestedAgents);
+
   // Write a resolved stack.json to the project so the user can see effective config.
   await writeFile(
-    join(targetDir, '.claude', 'stack.resolved.json'),
+    join(targetDir, '.agents', 'stack.resolved.json'),
     JSON.stringify({ stacks: selectedStacks.map((s) => s.name), ...merged }, null, 2),
   );
 
