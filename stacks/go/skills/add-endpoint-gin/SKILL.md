@@ -1,6 +1,9 @@
 ---
 name: add-endpoint-gin
 description: Add a new Gin HTTP endpoint wired to a Use Case, following Clean Architecture.
+metadata:
+  skill_type: micro
+  stack: go
 ---
 
 # Add Endpoint (Gin)

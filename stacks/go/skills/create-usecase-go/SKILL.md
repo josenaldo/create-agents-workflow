@@ -1,6 +1,9 @@
 ---
 name: create-usecase-go
 description: Scaffold a new Use Case following Clean Architecture in a Go project.
+metadata:
+  skill_type: micro
+  stack: go
 ---
 
 # Create Use Case (Go)

@@ -1,6 +1,9 @@
 ---
 name: write-unit-test-go
 description: Write a unit test for a Use Case or domain entity using the standard testing package in a Go project.
+metadata:
+  skill_type: micro
+  stack: go
 ---
 
 # Write Unit Test (Go)
