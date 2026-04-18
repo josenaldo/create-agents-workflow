@@ -1,6 +1,8 @@
 ---
 name: write-readme
 description: Create or update a README.md for a module, feature, or the project root.
+metadata:
+  skill_type: micro
 ---
 
 # Write README

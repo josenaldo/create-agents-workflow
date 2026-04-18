@@ -1,6 +1,8 @@
 ---
 name: write-adr
 description: Write an Architecture Decision Record capturing a significant technical decision, trade-off, or risk.
+metadata:
+  skill_type: micro
 ---
 
 # Write ADR

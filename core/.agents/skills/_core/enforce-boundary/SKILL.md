@@ -1,6 +1,8 @@
 ---
 name: enforce-boundary
 description: Verify Clean Architecture layer boundaries — domain and application must not import infrastructure.
+metadata:
+  skill_type: constraint
 ---
 
 # Enforce Boundary

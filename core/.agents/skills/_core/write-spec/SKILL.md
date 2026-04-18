@@ -1,6 +1,8 @@
 ---
 name: write-spec
 description: Create or update a user story with acceptance criteria in docs/specs/{module}/user-stories/.
+metadata:
+  skill_type: micro
 ---
 
 # Write Spec (User Story)
