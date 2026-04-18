@@ -1,6 +1,9 @@
 ---
 name: create-component-mui
 description: Scaffold a new React component using Material UI primitives with typed props and a colocated test.
+metadata:
+  skill_type: micro
+  stack: react-mui
 ---
 
 # Create Component (MUI)

@@ -1,6 +1,9 @@
 ---
 name: create-page-mui
 description: Scaffold a new page component using Material UI layout primitives, wired to the router and data layer.
+metadata:
+  skill_type: micro
+  stack: react-mui
 ---
 
 # Create Page (MUI)
