@@ -1,28 +1,40 @@
-# Agents & Skills — {{project.name}}
+# {{project.name}}
 
-## Skill Graph
+Stack: **{{stack.label}}**
 
-### Core Skills (stack-agnostic)
+## Architecture
 
-- `write-adr` — Architecture Decision Records
-- `write-spec` — User stories and acceptance criteria
-- `write-readme` — Module/project documentation
-- `enforce-boundary` — Clean Architecture layer validation
+- **New code:** `{{layout}}` — Clean Architecture
+- **Shared:** `src/@shared/` — base classes, error handling, utilities
 
-### Implementation Skills (per stack: {{stack.base}})
+## Critical Rules
 
-Stack-specific skills are loaded from `.claude/skills/{{stack.base}}/`.
+- NEVER import infrastructure concerns in `domain/` or `application/` layers
+- ALWAYS write unit tests for new Use Cases — test BEFORE implementation (TDD)
+- NEVER add business logic to Controllers (HTTP coordination only)
+- Commit convention: `type(scope): imperative message\n\nRefs #NN`. Types: feat, fix, test, refactor, docs, chore
+- Only commit files directly related to the task — never `git add -A`
 
-## Workflow
+## Skills
 
-```
-brainstorming → design → stories (write-spec) + adrs (write-adr) → plans → implementation (TDD) → review (enforce-boundary) → deploy
-```
+Available procedural skills live in `.agents/skills/`:
 
-## Model Routing
+- `_core/write-adr` — write an Architecture Decision Record
+- `_core/write-spec` — write a user story with acceptance criteria
+- `_core/write-readme` — create or update a README
+- `_core/enforce-boundary` — verify Clean Architecture boundaries (constraint)
+- `{{stack.base}}/*` — stack-specific skills (load from the directory)
 
-| Task type | Model tier | Examples |
-|-----------|-----------|---------|
-| Scanning, docs | Fast | file search, README generation, lint checks |
-| Features, tests | Standard | new use cases, unit tests, bug fixes |
-| Architecture | Complex | refactoring, cross-layer decisions, ADRs |
+Each skill is a folder with a `SKILL.md` file. Tools with native skill support read them from `.agents/skills/` directly (Codex, Gemini, Cursor) or via a symlink (Claude Code → `.claude/skills/`, Copilot → `.github/skills/`).
+
+## Memory
+
+See `memory/MEMORY.md` for architectural decisions, known issues, and confirmed patterns.
+
+## Fallback
+
+If a referenced file or skill does not exist:
+
+1. Report the missing reference briefly
+2. Use the best alternative available in the repo
+3. Record the assumption in the task log

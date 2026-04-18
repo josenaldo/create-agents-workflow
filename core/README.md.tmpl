@@ -1,0 +1,44 @@
+# {{project.name}}
+
+**{{stack.label}}** project scaffolded with [create-agents-workflow](https://github.com/josenaldo/agents-workflow-template).
+
+## Multi-Agent Context Files
+
+This repo uses a three-layer context-engineering structure:
+
+### Layer 1 — Universal (`AGENTS.md`)
+
+The project's constitution. Lists architecture, critical rules, skill catalog, and a memory pointer. Read natively by Codex, Gemini, and Cursor; a fallback for Claude.
+
+### Layer 2 — Tool-specific (thin references)
+
+- `CLAUDE.md` — Claude Code
+- `GEMINI.md` — Gemini CLI
+- `.github/copilot-instructions.md` — GitHub Copilot
+- `.cursorrules` — Cursor
+
+Each file is a thin reference to `AGENTS.md` plus tool-specific notes (e.g., commands, main-agent discipline). **Rules are not duplicated** — a rule change goes into `AGENTS.md` once.
+
+### Layer 3 — Skills (`.agents/skills/`)
+
+Procedural knowledge loaded on demand. Each skill is a folder:
+
+```
+.agents/skills/{name}/
+├── SKILL.md              # required
+├── references/           # optional; long examples
+├── scripts/              # optional; executable verification
+└── assets/               # optional; templates, fixtures
+```
+
+`.claude/skills/` and `.github/skills/` are **symlinks** to `.agents/skills/` so native tool discovery works. On Windows without symlink support, they are copies (edit only the canonical `.agents/skills/` and re-run scaffold to sync).
+
+## Memory
+
+Architectural decisions and confirmed patterns live in `memory/MEMORY.md`.
+
+## Commands
+
+```bash
+{{cmdBlock}}
+```
