@@ -1,6 +1,9 @@
 ---
 name: write-unit-test-pytest
 description: Write a unit test for a Use Case or domain entity using pytest in a Python project.
+metadata:
+  skill_type: micro
+  stack: python-uv
 ---
 
 # Write Unit Test (pytest)

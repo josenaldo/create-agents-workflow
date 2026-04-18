@@ -1,6 +1,9 @@
 ---
 name: add-endpoint-fastapi
 description: Add a new FastAPI HTTP endpoint wired to a Use Case, following Clean Architecture.
+metadata:
+  skill_type: micro
+  stack: python-uv
 ---
 
 # Add Endpoint (FastAPI)

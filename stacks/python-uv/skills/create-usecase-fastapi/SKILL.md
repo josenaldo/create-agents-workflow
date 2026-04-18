@@ -1,6 +1,9 @@
 ---
 name: create-usecase-fastapi
 description: Scaffold a new Use Case class following Clean Architecture in a Python + FastAPI project.
+metadata:
+  skill_type: micro
+  stack: python-uv
 ---
 
 # Create Use Case (FastAPI)
