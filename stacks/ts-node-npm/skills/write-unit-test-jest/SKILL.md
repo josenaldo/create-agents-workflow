@@ -1,6 +1,9 @@
 ---
 name: write-unit-test-jest
 description: Write a unit test for a Use Case or domain entity using Jest in a TypeScript + Node project.
+metadata:
+  skill_type: micro
+  stack: ts-node-npm
 ---
 
 # Write Unit Test (Jest)

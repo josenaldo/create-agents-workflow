@@ -1,6 +1,9 @@
 ---
 name: add-endpoint-express
 description: Add a new Express HTTP endpoint wired to a Use Case, following Clean Architecture.
+metadata:
+  skill_type: micro
+  stack: ts-node-npm
 ---
 
 # Add Endpoint (Express)

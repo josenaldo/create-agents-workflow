@@ -1,6 +1,9 @@
 ---
 name: create-usecase
 description: Scaffold a new Use Case class following Clean Architecture in a TypeScript + Node project.
+metadata:
+  skill_type: micro
+  stack: ts-node-npm
 ---
 
 # Create Use Case
