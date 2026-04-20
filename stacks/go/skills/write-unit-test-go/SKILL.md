@@ -1,6 +1,6 @@
 ---
 name: write-unit-test-go
-description: Write a unit test for a Use Case or domain entity using the standard testing package in a Go project.
+description: "Write a unit test for a Use Case or domain entity using Go's standard testing package with table-driven tests. Use when the user says 'write test', 'add tests', 'test this', 'TDD', 'cover X with tests'. Don't use for HTTP handler tests — use add-endpoint-gin for the handler, then test the use case. Don't use for integration tests with real databases."
 metadata:
   skill_type: micro
   stack: go
@@ -8,17 +8,13 @@ metadata:
 
 # Write Unit Test (Go)
 
-## Inputs
+## Instructions
 
-- **Target** — the struct/function to test (e.g., `CreateUser` use case, `User` entity)
-
-## Steps
-
-1. Determine test file path — same package, `_test.go` suffix:
-   - `internal/{module}/application/usecases/create_user.go` → `internal/{module}/application/usecases/create_user_test.go`
-   - `internal/{module}/domain/entities/user.go` → `internal/{module}/domain/entities/user_test.go`
-
-2. Structure the test:
+1. - [ ] Identify the target struct or function to test (e.g., `CreateUser` use case, `User` entity).
+2. - [ ] Determine the test file path — same package, `_test.go` suffix:
+   - `internal/{module}/application/usecases/create_user.go` → `create_user_test.go`
+   - `internal/{module}/domain/entities/user.go` → `user_test.go`
+3. - [ ] Create the test file with the `_test` package suffix for black-box testing:
 
 ```go
 package usecases_test
@@ -27,8 +23,8 @@ import (
     "context"
     "testing"
 
-    "internal/{module}/application/usecases"
-    "tests/fakes"
+    "{project}/internal/{module}/application/usecases"
+    "{project}/tests/fakes"
 )
 
 func TestNew{UseCaseName}(t *testing.T) {
@@ -65,14 +61,42 @@ func TestNew{UseCaseName}(t *testing.T) {
 }
 ```
 
-3. Run the test: `go test ./internal/{module}/application/usecases/... -run Test{UseCaseName} -v`
-4. Confirm RED (test fails for the right reason) before implementing.
+4. - [ ] Run the test: `go test ./internal/{module}/application/usecases/... -run Test{UseCaseName} -v`
+5. - [ ] Confirm RED (test fails for the right reason) before implementing.
+6. - [ ] After implementation, verify all subtests pass.
 
-## Rules
+## Critical
 
-- Use in-memory implementations of repository ports — NEVER mock the database directly.
-- Use `t.Run` for subtests. Use table-driven tests for parametric scenarios.
-- Test behavior, not implementation. Assert on outputs and errors.
-- Use `_test` package suffix for black-box testing (test the public API).
-- Cover: happy path, validation errors, edge cases, business rule violations.
-- Use `context.Background()` in tests unless testing cancellation.
+- Use in-memory fakes for repository ports — mocking the database directly couples tests to storage implementation and hides bugs.
+- Use `_test` package suffix (e.g., `package usecases_test`) — this forces black-box testing through the public API, catching real integration issues.
+- Always use `t.Run` for subtests — flat test functions with multiple assertions make failures hard to diagnose.
+- Use `context.Background()` in tests unless specifically testing cancellation — production contexts add noise to unit tests.
+
+## Examples
+
+**User says:** "Write tests for the CancelOrder use case."
+
+**Actions:**
+1. Target: `CancelOrder` in `internal/orders/application/usecases/cancel_order.go`.
+2. Create `cancel_order_test.go` with `package usecases_test`.
+3. Write subtests:
+   - "should cancel order when order exists and is cancellable" — arrange existing order, act cancel, assert status changed.
+   - "should return error when order not found" — arrange empty repo, assert error.
+   - "should return error when order already cancelled" — arrange cancelled order, assert error.
+4. Run: `go test ./internal/orders/application/usecases/... -run TestCancelOrder -v`.
+
+**Result:** 3 subtests created, all RED initially. After implementing `CancelOrder.Execute`, all pass.
+
+## Troubleshooting
+
+**Fake repository missing** → Test can't compile → Create an in-memory implementation of the port interface in `tests/fakes/`. It should use a `map[string]*Entity` for storage.
+
+**Test passes but shouldn't** → Assertion is wrong → Use `t.Errorf` for soft failures (continue), `t.Fatalf` for hard failures (stop). Verify you're comparing the right fields.
+
+**Table-driven test too verbose** → Many similar cases → Use a struct slice with `name`, `input`, `expected`, and `wantErr` fields. Loop with `t.Run(tc.name, ...)` to keep each case concise.
+
+## See also
+
+- `create-usecase-go` — create the use case to test
+- `add-endpoint-gin` — create the HTTP endpoint that calls the use case
+- `enforce-boundary` — verify test doesn't import from wrong layers
