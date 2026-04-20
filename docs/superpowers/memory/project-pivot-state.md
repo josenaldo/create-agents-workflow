@@ -2,31 +2,33 @@
 
 > **Purpose:** Everything to remember about the multi-agent pivot across sessions, especially when the local directory is renamed and Claude Code memory needs to migrate.
 
-**Last updated:** 2026-04-18
+**Last updated:** 2026-04-20
 
 ---
 
 ## Current state
 
 - **Branch:** `feature/multi-agent-pivot-infrastructure`
-- **Last commit on branch:** `43321bc` (test: update scaffold tests for .agents/skills/ folder format and add multi-agent test suites)
-- **Total commits ahead of master:** 14 (all Plan 1 tasks)
+- **Last commit on branch:** `1d45aa5` (docs: add rename cutover plan and pivot state memory)
+- **Total commits ahead of master:** 15 (all Plan 1 tasks)
 - **master:** last commit `bc9a2ea` (docs(plan): Plan 1 — multi-agent infrastructure pivot)
 - **Package version:** `1.0.0-0` (pre-release, not yet published)
 - **Old package version on npm:** `@josenaldo/create-claude-workflow@0.1.0` (still live, NOT yet deprecated)
 - **New package on npm:** `@josenaldo/create-agents-workflow` — NOT yet published
 - **Tests:** 98 passing, 17 suites (baseline was 76 tests)
+- **GitHub repo:** already renamed to `https://github.com/josenaldo/create-agents-workflow`
+- **Local directory:** already at `/home/josenaldo/repos/personal/create-agents-workflow`
 
 ## Key paths — current and target
 
-| Item                      | Current (old)                                                                          | Target (new)                                                                          |
-| ------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| Local directory           | `/home/josenaldo/repos/personal/claude-workflow-template`                              | `/home/josenaldo/repos/personal/agents-workflow-template`                             |
-| GitHub repo               | `https://github.com/josenaldo/claude-workflow-template`                                | `https://github.com/josenaldo/agents-workflow-template`                               |
-| Git remote URL            | `git@github.com:josenaldo/claude-workflow-template.git`                                | `git@github.com:josenaldo/agents-workflow-template.git`                               |
-| npm package               | `@josenaldo/create-claude-workflow` (deprecate)                                        | `@josenaldo/create-agents-workflow` (new)                                             |
-| CLI binary name           | `create-claude-workflow`                                                               | `create-agents-workflow`                                                              |
-| Claude Code memory dir    | `~/.claude/projects/-home-josenaldo-repos-personal-claude-workflow-template`           | `~/.claude/projects/-home-josenaldo-repos-personal-agents-workflow-template`          |
+| Item                   | Current (old)                                                              | Target (new)                              |
+| ---------------------- | -------------------------------------------------------------------------- | ----------------------------------------- |
+| Local directory        | `/home/josenaldo/repos/personal/create-agents-workflow` ✅ DONE             | —                                         |
+| GitHub repo            | `https://github.com/josenaldo/create-agents-workflow` ✅ DONE               | —                                         |
+| Git remote URL         | `git@github.com:josenaldo/create-agents-workflow.git` ✅ DONE               | —                                         |
+| npm package            | `@josenaldo/create-claude-workflow` (deprecate)                            | `@josenaldo/create-agents-workflow` (new) |
+| CLI binary name        | `create-claude-workflow`                                                   | `create-agents-workflow`                  |
+| Claude Code memory dir | `~/.claude/projects/-home-josenaldo-repos-personal-create-agents-workflow` | —                                         |
 
 ## Why the pivot
 
@@ -52,12 +54,12 @@ The original `@josenaldo/create-claude-workflow` was tightly coupled to Claude C
 
 ## Residual old-name references inside the repo (will be fixed by Plan 3, Phase 1)
 
-| File                 | Line/Section                   | Old string                             | Action                                                             |
-| -------------------- | ------------------------------ | -------------------------------------- | ------------------------------------------------------------------ |
-| `bin/create.js`      | line 127                       | `create-claude-workflow`               | Rename in `bail()` message                                         |
-| `README.md`          | entire file                    | `create-claude-workflow`               | Full rewrite for multi-agent                                       |
-| `package-lock.json`  | lines 2, 8, 16                 | `@josenaldo/create-claude-workflow`    | Regenerate with `rm package-lock.json && npm install`              |
-| Specs + plans docs   | multiple                       | references to the old package          | **Keep as-is** — historical context; deprecation references needed |
+| File                | Line/Section   | Old string                          | Action                                                             |
+| ------------------- | -------------- | ----------------------------------- | ------------------------------------------------------------------ |
+| `bin/create.js`     | line 127       | `create-claude-workflow`            | ✅ Fixed — now uses `create-agents-workflow`                        |
+| `README.md`         | entire file    | `create-claude-workflow`            | ✅ Fixed — full rewrite for multi-agent                             |
+| `package-lock.json` | lines 2, 8, 16 | `@josenaldo/create-claude-workflow` | Regenerate with `rm package-lock.json && npm install`              |
+| Specs + plans docs  | multiple       | references to the old package       | **Keep as-is** — historical context; deprecation references needed |
 
 ## Critical reminders for the rename
 

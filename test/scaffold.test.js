@@ -173,7 +173,7 @@ const cleanupDirs = [];
 
 after(async () => {
   for (const d of cleanupDirs) {
-    await rm(d, { recursive: true, force: true }).catch(() => {});
+    await rm(d, { recursive: true, force: true }).catch(() => { });
   }
 });
 

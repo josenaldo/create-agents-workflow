@@ -124,7 +124,7 @@ async function main() {
   let projectName = positionals[0] || '';
   if (!projectName) {
     if (nonInteractive) {
-      bail('Project name is required with --yes/--dry-run. Usage: create-claude-workflow <name> --stack <stack> [--yes|--dry-run]');
+      bail('Project name is required with --yes/--dry-run. Usage: create-agents-workflow <name> --stack <stack> [--yes|--dry-run]');
     }
     projectName = await text({
       message: 'Project name (or "." to use current directory)',
@@ -321,7 +321,7 @@ async function main() {
   if (!seedMemory) {
     try {
       execSync(`rm -rf "${join(targetDir, 'memory')}"`);
-    } catch {}
+    } catch { }
   }
 
   const summary = [

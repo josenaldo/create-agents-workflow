@@ -1,52 +1,52 @@
 {
-  "name": "@josenaldo/create-agents-workflow",
-  "version": "1.0.0-0",
-  "description": "Scaffolding CLI to bootstrap a multi-agent Claude Code / Codex / Gemini / Copilot / Cursor workflow (AGENTS.md + skills + memory + command mapping) tailored to a chosen stack",
-  "type": "module",
-  "bin": {
-    "create-agents-workflow": "bin/create.js"
-  },
-  "files": [
-    "bin",
-    "lib",
-    "core",
-    "stacks",
-    "README.md",
-    "LICENSE"
-  ],
-  "scripts": {
-    "test": "node --test test/**/*.test.js"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/josenaldo/agents-workflow-template.git"
-  },
-  "homepage": "https://github.com/josenaldo/agents-workflow-template#readme",
-  "bugs": {
-    "url": "https://github.com/josenaldo/agents-workflow-template/issues"
-  },
-  "engines": {
-    "node": ">=18"
-  },
-  "dependencies": {
-    "@clack/prompts": "^0.7.0",
-    "picocolors": "^1.0.0"
-  },
-  "keywords": [
-    "claude",
-    "claude-code",
-    "codex",
-    "gemini",
-    "copilot",
-    "cursor",
-    "agents-md",
-    "scaffolding",
-    "template",
-    "clean-architecture",
-    "context-engineering"
-  ],
-  "license": "MIT"
+    "name": "@josenaldo/create-agents-workflow",
+    "version": "1.0.0-0",
+    "description": "Scaffolding CLI to bootstrap a multi-agent Claude Code / Codex / Gemini / Copilot / Cursor workflow (AGENTS.md + skills + memory + command mapping) tailored to a chosen stack",
+    "type": "module",
+    "bin": {
+        "create-agents-workflow": "bin/create.js"
+    },
+    "files": [
+        "bin",
+        "lib",
+        "core",
+        "stacks",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "test": "node --test test/**/*.test.js"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/josenaldo/create-agents-workflow.git"
+    },
+    "homepage": "https://github.com/josenaldo/create-agents-workflow#readme",
+    "bugs": {
+        "url": "https://github.com/josenaldo/create-agents-workflow/issues"
+    },
+    "engines": {
+        "node": ">=18"
+    },
+    "dependencies": {
+        "@clack/prompts": "^0.7.0",
+        "picocolors": "^1.0.0"
+    },
+    "keywords": [
+        "claude",
+        "claude-code",
+        "codex",
+        "gemini",
+        "copilot",
+        "cursor",
+        "agents-md",
+        "scaffolding",
+        "template",
+        "clean-architecture",
+        "context-engineering"
+    ],
+    "license": "MIT"
 }
