@@ -309,7 +309,7 @@ async function main() {
     try {
       execSync('git init', { cwd: targetDir, stdio: 'ignore' });
       execSync('git add .', { cwd: targetDir, stdio: 'ignore' });
-      execSync('git commit -m "chore: bootstrap claude workflow"', {
+      execSync('git commit -m "chore: bootstrap agents workflow"', {
         cwd: targetDir,
         stdio: 'ignore',
       });
@@ -330,7 +330,7 @@ async function main() {
     '',
     'Next:',
     `  cd ${projectName === '.' ? '.' : projectName}`,
-    `  cat CLAUDE.md`,
+    `  cat AGENTS.md`,
   ].join('\n');
 
   if (nonInteractive) {
