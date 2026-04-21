@@ -1,6 +1,6 @@
 ---
 name: create-component-mui
-description: Scaffold a new React component using Material UI primitives with typed props and a colocated test.
+description: "Scaffold a new React component using Material UI primitives with typed props and a colocated test. Use when the user says 'create component', 'new card', 'new widget', 'add a UI element', 'build X component'. Don't use for full pages — use create-page-mui. Don't use for data hooks — use frontend-hooks-react-query."
 metadata:
   skill_type: micro
   stack: react-mui
@@ -8,29 +8,30 @@ metadata:
 
 # Create Component (MUI)
 
-## Inputs
+## Instructions
 
-- **Feature name** (e.g., `users`, `billing`)
-- **Component name** in PascalCase (e.g., `UserCard`, `InvoiceRow`)
-
-## Steps
-
-1. Determine the target path: `src/features/{feature}/components/{ComponentName}/`
-2. Create the component file `{ComponentName}.tsx`:
+1. - [ ] Identify the feature name (e.g., `users`) and component name in PascalCase (e.g., `UserCard`).
+2. - [ ] Determine the target path: `src/features/{feature}/components/{ComponentName}/`.
+3. - [ ] Create the component file `{ComponentName}.tsx`:
 
 ```tsx
 import { Card, CardContent, Stack, Typography } from '@mui/material';
 
 export interface {ComponentName}Props {
-  // required and optional props (prefer discriminated unions over boolean flags)
+  title: string;
+  description?: string;
+  // prefer discriminated unions over boolean flags
 }
 
-export function {ComponentName}({ ...props }: {ComponentName}Props) {
+export function {ComponentName}({ title, description }: {ComponentName}Props) {
   return (
     <Card variant="outlined">
       <CardContent>
         <Stack spacing={1}>
-          {/* component body */}
+          <Typography variant="subtitle1" fontWeight={500}>{title}</Typography>
+          {description && (
+            <Typography variant="body2" color="text.secondary">{description}</Typography>
+          )}
         </Stack>
       </CardContent>
     </Card>
@@ -38,13 +39,13 @@ export function {ComponentName}({ ...props }: {ComponentName}Props) {
 }
 ```
 
-3. Create `index.ts` that re-exports the component and its props type:
+4. - [ ] Create `index.ts` that re-exports the component and its props type:
    ```ts
    export { {ComponentName} } from './{ComponentName}';
    export type { {ComponentName}Props } from './{ComponentName}';
    ```
 
-4. Create the test file `{ComponentName}.test.tsx` with React Testing Library + Vitest:
+5. - [ ] Create the test file `{ComponentName}.test.tsx`:
 
 ```tsx
 import { render, screen } from '@testing-library/react';
@@ -59,18 +60,45 @@ function renderWithProviders(ui: React.ReactNode) {
 
 describe('{ComponentName}', () => {
   it('renders with required props', () => {
-    renderWithProviders(<{ComponentName} {...requiredProps} />);
-    expect(screen.getByRole(/* ... */)).toBeInTheDocument();
+    renderWithProviders(<{ComponentName} title="Test" />);
+    expect(screen.getByText('Test')).toBeInTheDocument();
   });
 });
 ```
 
-## Rules
+6. - [ ] Run the tests: `npm test -- --testPathPattern={ComponentName}`.
 
-- Use MUI primitives (`Card`, `Stack`, `Box`, `Typography`, `Button`) over raw HTML when possible.
-- Use MUI's `sx` prop for one-off styles; create themed components via `styled()` for reuse.
-- Use `Stack` with `spacing` rather than manual margins — it composes cleanly with responsive props.
-- Tests MUST wrap components in `<ThemeProvider>` — raw render breaks theme-aware styles.
-- No business logic in components — call hooks/use cases from the `hooks/` or `api/` layer.
-- Export props interface alongside the component so consumers can type wrappers.
-- Use `Typography` with `variant` for all text (`h1`, `h2`, `body1`, `caption`) — never raw `<p>` or `<h1>`.
+## Critical
+
+- Use MUI primitives (`Card`, `Stack`, `Box`, `Typography`, `Button`) over raw HTML — raw HTML ignores the design system and causes visual inconsistency.
+- Tests MUST wrap components in `<ThemeProvider>` — raw render crashes on theme context access and produces misleading failures.
+- Use `Typography` with `variant` for all text (`h1`, `body1`, `caption`) — raw `<p>` and `<h1>` tags bypass the design system's type scale.
+- No business logic in components — components that fetch data or run business rules become untestable and tightly coupled to the backend.
+
+## Examples
+
+**User says:** "Create an OrderCard component."
+
+**Actions:**
+1. Feature: `orders`, component: `OrderCard`.
+2. Path: `src/features/orders/components/OrderCard/`.
+3. Create `OrderCard.tsx` with `OrderCardProps { orderId: string; total: number; status: string }`.
+4. Use `Card`, `CardContent`, `Stack`, `Typography`, `Chip` from MUI.
+5. Create `index.ts` re-exporting component and props.
+6. Create `OrderCard.test.tsx` with `ThemeProvider` wrapper.
+
+**Result:** `OrderCard/` directory with component, barrel export, and passing test.
+
+## Troubleshooting
+
+**MUI styles not applied** → Component renders but looks unstyled → Ensure `ThemeProvider` wraps the app root. In tests, use the `renderWithProviders` helper with `createTheme()`.
+
+**MUI icons not rendering** → `@mui/icons-material` not installed → Run `npm install @mui/icons-material`. Import icons individually: `import CheckIcon from '@mui/icons-material/Check'`.
+
+**Props type not available to consumers** → Only the component is exported → Add `export type { {ComponentName}Props }` to `index.ts`.
+
+## See also
+
+- `create-page-mui` — create a page that uses this component
+- `frontend-hooks-react-query` — create data hooks the page will call
+- `enforce-boundary` — verify components don't import from wrong layers
