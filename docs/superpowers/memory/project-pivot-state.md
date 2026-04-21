@@ -8,16 +8,18 @@
 
 ## Current state
 
-- **Branch:** `feature/multi-agent-pivot-infrastructure`
-- **Last commit on branch:** `1d45aa5` (docs: add rename cutover plan and pivot state memory)
-- **Total commits ahead of master:** 15 (all Plan 1 tasks)
-- **master:** last commit `bc9a2ea` (docs(plan): Plan 1 — multi-agent infrastructure pivot)
-- **Package version:** `1.0.0-0` (pre-release, not yet published)
+- **Branch:** `main`
+- **Last commit:** merge of Plan 2 (all 21 skills rewritten to canonical format)
+- **Package version:** `1.0.0` (bumped from `1.0.0-0`, ready to publish)
 - **Old package version on npm:** `@josenaldo/create-claude-workflow@0.1.0` (still live, NOT yet deprecated)
-- **New package on npm:** `@josenaldo/create-agents-workflow` — NOT yet published
+- **New package on npm:** `@josenaldo/create-agents-workflow` — NOT yet published (Plan 3 Phase 3 pending)
 - **Tests:** 98 passing, 17 suites (baseline was 76 tests)
 - **GitHub repo:** already renamed to `https://github.com/josenaldo/create-agents-workflow`
 - **Local directory:** already at `/home/josenaldo/repos/personal/create-agents-workflow`
+
+## Plan 2 status — COMPLETE ✅
+
+All 21 SKILL.md files rewritten to canonical format (Instructions with checkboxes, Critical with consequences, Examples with User says/Actions/Result, Troubleshooting, See also). Merged to `main` on 2026-04-20.
 
 ## Key paths — current and target
 
@@ -40,17 +42,17 @@ The original `@josenaldo/create-claude-workflow` was tightly coupled to Claude C
 
 ## Pending work (outstanding)
 
-### Plan 2 (not yet written)
-
-**What:** Rewrite 21 skills from their current minimal content to the full English body format (`Instructions`, `Critical`, `Examples`, `Troubleshooting`, `Performance Notes`, `See also`). Spec § 4 governs the template.
-
-**How:** Invoke `superpowers:writing-plans` when ready. The skill file will land at `docs/superpowers/plans/2026-XX-XX-multi-agent-pivot-plan-2-skill-content.md`.
-
 ### Plan 3 (this directory) — Rename Cutover
+
+**Status:** In progress (2026-04-20). Phase 1 (residual refs, package-lock, version bump) complete. Pending: `npm login` + publish + deprecate.
 
 **What:** Everything in [2026-04-18-rename-cutover-plan.md](../plans/2026-04-18-rename-cutover-plan.md).
 
-**Dependencies:** Plan 2 must be complete first (no value in publishing 1.0.0 with stub skill bodies).
+**Phase 1** ✅ — residual refs cleaned, `package-lock.json` regenerated, version bumped to `1.0.0`
+**Phase 2** ✅ — GitHub repo already renamed
+**Phase 3** 🔲 — `npm publish @josenaldo/create-agents-workflow@1.0.0` (requires `npm login`)
+**Phase 4** 🔲 — publish `@josenaldo/create-claude-workflow@0.1.1` deprecation + `npm deprecate`
+**Phase 5** ✅ — local directory already renamed
 
 ## Residual old-name references inside the repo (will be fixed by Plan 3, Phase 1)
 

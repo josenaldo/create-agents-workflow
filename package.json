@@ -1,6 +1,6 @@
 {
     "name": "@josenaldo/create-agents-workflow",
-    "version": "1.0.0-0",
+    "version": "1.0.0",
     "description": "Scaffolding CLI to bootstrap a multi-agent Claude Code / Codex / Gemini / Copilot / Cursor workflow (AGENTS.md + skills + memory + command mapping) tailored to a chosen stack",
     "type": "module",
     "bin": {
